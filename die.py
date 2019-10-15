@@ -1,6 +1,7 @@
 from random import randint
 
 class Die:
+    
     def __init__(self): 
         self.side = 0
         self.roll_count = 0

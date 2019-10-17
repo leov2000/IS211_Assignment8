@@ -1,6 +1,9 @@
 from game import Game
+from timed_proxy import TimedProxy
 
-## will be the implementation I use going forward whether there's a time param or not. 
+class TimedGateProxy(TimedProxy):
+    def get_time(self):
+        return self.time
 
-class TimedGameProxy(Game):
-    pass 
+    def set_time(self, new_time):
+        self.time = new_time 

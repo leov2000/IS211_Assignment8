@@ -1,6 +1,8 @@
 
 import logging
 from game import Game
+from timed_proxy import TimedProxy
+from timed_game_proxy import TimedGameProxy
 from die import Die
 from player_factory import PlayerFactory
 from utilities import print_current_score, print_die_roll_message, get_winner, print_game_winner, print_unintended_keystroke
@@ -9,8 +11,9 @@ class Play:
     
     def __init__(self, player_list, timed):
         self.factory = PlayerFactory()
-        self.players = [self.factory.get_player(player, index+1) for index, player in enumerate(player_list) ]
-        self.game = if timed 
+        self.players = [self.factory.get_player_type(player, index+1) for index, player in enumerate(player_list) ]
+        self.game = TimedGameProxy(TimedProxy(Game(self.players, Die())))
+        self.game.set_time(timed)
         self.CLI = True 
         self.game_num = 0
 

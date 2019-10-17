@@ -15,28 +15,25 @@ def main():
         An error if the string url is entered incorrectly.
     """
     
+    logging.basicConfig(filename='errors_log/errors.log', level=logging.ERROR, format='%(message)s')
+    logging.getLogger('assignment8')
+
     parser = argparse.ArgumentParser()
-    parser.add_argument('--numPlayers', default=2)
+    parser.add_argument('--player1', default="human", help='choose human or computer')
+    parser.add_argument('--player2', default="human", help='choose human or computer')
+    parser.add_argument('--timed', default=0, const=1, nargs='?', help='pass the --timed flag to play for 1 min.')
+    
     args = parser.parse_args()
 
-    logging.basicConfig(filename='errors_log/errors.log', level=logging.ERROR, format='%(message)s')
-    logging.getLogger('assignment7')
-
-    players = args.numPlayers
-    (player_is_int, player_num) = safe_int_checker(players)
+    player1 = args.player1 
+    player2 = args.player2
+    timed = args.timed 
 
     print_graphics('artwork/PIG-ART.txt')
-    keyed = input('\nHow many games would you like to play?\n')
-    (game_is_int, game_num) = safe_int_checker(keyed)
 
-    if game_is_int and player_is_int:
-        play = Play(player_num, game_num)
-        play.start()
-    else:
-        print(f'Something went wrong, you entered in games: "{keyed}" & players: "{players}"')
-        logging.error(f'Error processing games key: "{keyed}" & players key: "{players}"')
-        return SystemExit
-    
+    play = Play([player1, player2], timed)
+    play.start()
+
     print_graphics('artwork/END.txt')
     print("\nThank you for playing PIG. Please run the script to play again!\n")
 

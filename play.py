@@ -12,9 +12,6 @@ class Play:
     
     def __init__(self, player_list, timed):
         self.factory = PlayerFactory()
-        for i, player in enumerate(player_list):
-            print(i, player)
-        print(player_list, 'PLAYER-LIST')
         self.players = [self.factory.get_player_type(player, index+1) for index, player in enumerate(player_list) ]
         self.game = TimedGameProxy(TimedProxy(Game(self.players, Die())))
         self.game.set_time(timed)
@@ -23,7 +20,6 @@ class Play:
         self.timed = timed 
 
     def timed_game(self, current_game, game_players):
-        print("time game")
         start_time = time.time()
         time_elapsed = 0
 
@@ -41,7 +37,6 @@ class Play:
                         
 
             if current_game.check_highest_score() >= 100 or time_elapsed > self.game.get_time():
-                print("game ended time")
                 self.retreive_winner(current_game)
                 self.end_game(current_game)
                 self.CLI = False

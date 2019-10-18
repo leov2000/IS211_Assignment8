@@ -21,7 +21,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--player1', default="human", help='choose human or computer')
     parser.add_argument('--player2', default="human", help='choose human or computer')
-    parser.add_argument('--timed', default=0, const=1, nargs='?', help='pass the --timed flag to play for 1 min.')
+    parser.add_argument('--timed', default=0, const=60, nargs='?', help='pass the --timed flag to play for 1 min.')
     
     args = parser.parse_args()
 

@@ -1,5 +1,6 @@
 
 import logging
+import time
 from game import Game
 from timed_proxy import TimedProxy
 from timed_game_proxy import TimedGameProxy
@@ -16,20 +17,35 @@ class Play:
         self.game.set_time(timed)
         self.CLI = True 
         self.game_num = 0
+        self.timed = timed 
 
-    def start(self):
-        """
-        The start function of the play class that encapsulates the rules of the game.
-
-        Parameters: None
-        """
+    def timed_game(self, current_game, game_players):
+        start_time = time.time()
+        time_elapsed = 0
 
         while self.CLI:
-            game_turns = len(self.games)
-            current_game = self.games[self.game_num]
-            game_players = current_game.get_players()
 
-            while(current_game.check_highest_score() < 100):
+            while current_game.check_highest_score() < 100 or time_elapsed > self.game.get_time():
+                time_elapsed = time.time() - start_time
+
+                for player in game_players:
+                    player.set_player_rolling_state(True)
+
+                    while player.get_player_rolling_state() and current_game.check_highest_score() < 100 and time_elapsed < self.game.get_time():
+                        time_elapsed = time.time() - start_time
+                        self.check_player_input(player, current_game)
+                        
+
+            if current_game.check_highest_score() >= 100 or time_elapsed > self.game.get_time():
+                print("game ended time")
+                self.retreive_winner(current_game)
+                self.end_game(current_game)
+                self.CLI = False
+    
+    def play_reg_game(self, current_game, game_players):
+        while self.CLI:
+
+            while current_game.check_highest_score() < 100:
 
                 for player in game_players:
                     player.set_player_rolling_state(True)
@@ -40,10 +56,39 @@ class Play:
             if current_game.check_highest_score() >= 100:
                 self.retreive_winner(current_game)
                 self.end_game(current_game)
-
-            if self.game_num == game_turns:
                 self.CLI = False
 
+
+    def start(self):
+        """
+        The start function of the play class that encapsulates the rules of the game.
+
+        Parameters: None
+        """
+        current_game = self.game
+        game_players = current_game.get_players()
+
+        self.play_reg_game(current_game, game_players) if self.timed == 0 else self.timed_game(current_game, game_players)
+        # while self.CLI:
+        #     current_game = self.game
+        #     game_players = current_game.get_players()
+        #     has_timer = True if self.timed else False 
+
+        #     while current_game.check_highest_score() < 100:
+
+        #         for player in game_players:
+        #             player.set_player_rolling_state(True)
+
+        #             while player.get_player_rolling_state() and current_game.check_highest_score() < 100:
+        #                 self.check_player_input(player, current_game)
+
+        #     if current_game.check_highest_score() >= 100:
+        #         self.retreive_winner(current_game)
+        #         self.end_game(current_game)
+
+        #     if self.game_num == game_turns:
+        #         self.CLI = False
+    
     def check_player_input(self, player, current_game):
         """
         A function that checks the key input entered by a player on their turn.

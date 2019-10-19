@@ -52,14 +52,12 @@ class Play:
 
                 for player in game_players:
                     player.set_player_rolling_state(True)
-
+            
                     while player.get_player_rolling_state() and current_game.check_highest_score() < 100:
                         self.check_player_input(player, current_game)
 
             if current_game.check_highest_score() >= 100:
                 self.end_game(current_game)
-
-
 
     def start(self):
         """
@@ -82,23 +80,38 @@ class Play:
         
         Logs: An error if a key is entered that isn't an 'h' or 'r'
         """
+        if player.factory_type == 'computer':
+            tally = current_game.sum_tally(player)
+            cpu_score = player.get_player_score()
+            cpu_input = player.execute_strategy(tally, cpu_score)
+            print(cpu_input, 'cpu input')
+
+            self.hold_action(player, current_game) if cpu_input == 'h' else self.roll_action(player, current_game)
+            
+            return 
+
 
         player_input = input(f'Player {player.get_player_name()} would you like to ("r") roll or ("h") hold?\n')
         
         if player_input.lower() == 'h':
-            current_game.hold(player)
-            score_list = current_game.get_score_list()
-            print_current_score(score_list, self.game_num+1, player)
-
+            self.hold_action(player, current_game)
         elif player_input.lower() == 'r':
-            num_rolled = current_game.roll_die(player)
-            score_list = current_game.get_score_list()
-            print_die_roll_message(num_rolled, player.get_player_name())
-            print_current_score(score_list, self.game_num+1, player)
-
+            self.roll_action(player, current_game)
         else:
             print_unintended_keystroke()
             logging.error(f'unintended_keystroke for Player: {player.get_player_name()} typed in: {player_input}')
+
+    def hold_action(self, player, current_game):
+        current_game.hold(player)
+        score_list = current_game.get_score_list()
+        print_current_score(score_list, self.game_num+1, player)
+
+
+    def roll_action(self, player, current_game):
+        num_rolled = current_game.roll_die(player)
+        score_list = current_game.get_score_list()
+        print_die_roll_message(num_rolled, player.get_player_name())
+        print_current_score(score_list, self.game_num+1, player)
 
     def retreive_winner(self, current_game):
         """

@@ -1,10 +1,11 @@
 class Player:
     
-    def __init__(self, name):
+    def __init__(self, name, factory_type):
         self.score = 0
         self.name = name
         self.tally = []
         self.rolling = False
+        self.factory_type = factory_type
 
     def reset_score(self):
         """

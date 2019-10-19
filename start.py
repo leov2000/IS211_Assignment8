@@ -29,6 +29,8 @@ def main():
     player2 = args.player2
     timed = args.timed 
 
+    print(player1, 'PLAYER1')
+    print(player2, "PLAYER2")
     print_graphics('artwork/PIG-ART.txt')
 
     play = Play([player1, player2], timed)

@@ -1,9 +1,9 @@
 ## Description
-### This refactored game of Pig is a game where 2 players roll a die and ends when a player reaches 100 points or the time ends.
+### This game is a refactored version from [link](https://github.com/leov2000/IS211_Assignment7){:target="_blank"}. This version includes the option to play with a timer of 1 min and also gives the option to play against a computer. The game ends when a player reaches 100 points or the time ends.
 
 ## Game Instructions:
-### To start the game use the following command: `python3 start.py --player1 computer --player2 human`.
-### To start the game use the following command: `python3 start.py --player1 computer --player2 human --timed`. for a timed game that lasts a minute
+### To start the game without a timer use the following: `python3 start.py --player1 computer --player2 human`.
+### To start the game with a 1 min timer use the following: `python3 start.py --player1 computer --player2 human --timed`. 
 
 ## Players:
 ### The game needs two params:

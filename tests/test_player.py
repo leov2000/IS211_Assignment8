@@ -38,12 +38,12 @@ class TestPlayer(unittest.TestCase):
         self.assertEqual(current_score, 23)
     
     def test_player_score_state_after_reset(self):
-        (score, tally) = self.player.reset_score()
+        (score, _) = self.player.reset_score()
         
         self.assertEqual(score, 0)
 
     def test_player_tally_state_after_reset(self):
-        (score, tally) = self.player.reset_score()
+        (_, tally) = self.player.reset_score()
 
         self.assertEqual(tally, [])
     

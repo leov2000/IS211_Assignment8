@@ -14,7 +14,7 @@ from die import Die
 class TestGame(unittest.TestCase):
     
     def setUp(self):
-        player_list = [Player(player_name) for player_name in range(0,2)]
+        player_list = [Player(player_name, 'human') for player_name in range(0,2)]
         self.game = Game(player_list, Die())
     
     def simulate_game_attempts(self, tries):

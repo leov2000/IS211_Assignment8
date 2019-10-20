@@ -10,7 +10,7 @@ from player import Player
 class TestPlayer(unittest.TestCase):
 
     def setUp(self):
-        self.player = Player(1)
+        self.player = Player(1, 'human')
 
     def test_player_has_name_value(self):
         player_name = self.player.get_player_name()

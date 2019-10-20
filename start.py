@@ -1,7 +1,7 @@
 
 import argparse
 import logging
-from utilities import safe_int_checker, print_graphics
+from utilities import safe_int_checker, print_graphics, print_player_type_selection
 from play import Play
 
 def main():
@@ -29,9 +29,8 @@ def main():
     player2 = args.player2
     timed = args.timed 
 
-    print(player1, 'PLAYER1')
-    print(player2, "PLAYER2")
     print_graphics('artwork/PIG-ART.txt')
+    print_player_type_selection(player1, player2)
 
     play = Play([player1, player2], timed)
     play.start()

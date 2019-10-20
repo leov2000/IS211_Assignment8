@@ -84,12 +84,10 @@ class Play:
             tally = current_game.sum_tally(player)
             cpu_score = player.get_player_score()
             cpu_input = player.execute_strategy(tally, cpu_score)
-            print(cpu_input, 'cpu input')
 
             self.hold_action(player, current_game) if cpu_input == 'h' else self.roll_action(player, current_game)
-            
-            return 
 
+            return 
 
         player_input = input(f'Player {player.get_player_name()} would you like to ("r") roll or ("h") hold?\n')
         
@@ -110,7 +108,7 @@ class Play:
     def roll_action(self, player, current_game):
         num_rolled = current_game.roll_die(player)
         score_list = current_game.get_score_list()
-        print_die_roll_message(num_rolled, player.get_player_name())
+        print_die_roll_message(num_rolled, player.get_player_name(), player.factory_type)
         print_current_score(score_list, self.game_num+1, player)
 
     def retreive_winner(self, current_game):

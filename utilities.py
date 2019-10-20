@@ -65,7 +65,7 @@ def print_current_score(score_list, game_num, current_player = None):
 
     print(text_footer)
 
-def print_die_roll_message(num, player_name):
+def print_die_roll_message(num, player_name, player_type):
     """
     A print utility function that prints out the player's current roll
 
@@ -73,8 +73,8 @@ def print_die_roll_message(num, player_name):
         num(int)
         player_name(str)
     """
-    
-    roll_message = f'Player {player_name} rolled a {num} You lost a turn...\n' if num == 1 else f'Player {player_name} rolled a {num}! Adding it to the tally...\n'
+    print('\n')
+    roll_message = f'Player {player_name} [{player_type}] rolled a {num} and lost a turn...\n' if num == 1 else f'Player {player_name} [{player_type}] rolled a {num}! Adding it to the tally...\n'
     print(roll_message)
 
 def get_winner(player_list):
@@ -105,4 +105,14 @@ def print_game_winner(score_dict, game_num):
     print('*' * 51)
     print(f'\nPlayer {name} won GAME:{game_num} with a SCORE OF: {score} !!!!\n')
     print('*' * 51)
+    print('\n')
+
+def print_player_type_selection(player1, player2):
+    print('\n')
+    print("$" * 51)
+    print('\n')
+    print(f"PLAYER 1 Selected a [ {player1} ] player")
+    print(f"PLAYER 2 Selected a [ {player2} ] player")
+    print('\n')
+    print("$" * 51)
     print('\n')
